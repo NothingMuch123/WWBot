@@ -1,0 +1,14 @@
+C:\Users\Koh Fang Shu\Documents\Visual Studio 2017\repos\WWBot\WWBot\bin\Release\netcoreapp2.0\win10-x64\hostpolicy.dll
+C:\Users\Koh Fang Shu\Documents\Visual Studio 2017\repos\WWBot\WWBot\bin\Release\netcoreapp2.0\win10-x64\hostfxr.dll
+C:\Users\Koh Fang Shu\Documents\Visual Studio 2017\repos\WWBot\WWBot\bin\Release\netcoreapp2.0\win10-x64\WWBot.exe
+C:\Users\Koh Fang Shu\Documents\Visual Studio 2017\repos\WWBot\WWBot\bin\Release\netcoreapp2.0\win10-x64\WWBot.deps.json
+C:\Users\Koh Fang Shu\Documents\Visual Studio 2017\repos\WWBot\WWBot\bin\Release\netcoreapp2.0\win10-x64\WWBot.runtimeconfig.json
+C:\Users\Koh Fang Shu\Documents\Visual Studio 2017\repos\WWBot\WWBot\bin\Release\netcoreapp2.0\win10-x64\WWBot.runtimeconfig.dev.json
+C:\Users\Koh Fang Shu\Documents\Visual Studio 2017\repos\WWBot\WWBot\bin\Release\netcoreapp2.0\win10-x64\WWBot.dll
+C:\Users\Koh Fang Shu\Documents\Visual Studio 2017\repos\WWBot\WWBot\bin\Release\netcoreapp2.0\win10-x64\WWBot.pdb
+C:\Users\Koh Fang Shu\Documents\Visual Studio 2017\repos\WWBot\WWBot\obj\Release\netcoreapp2.0\win10-x64\WWBot.csprojAssemblyReference.cache
+C:\Users\Koh Fang Shu\Documents\Visual Studio 2017\repos\WWBot\WWBot\obj\Release\netcoreapp2.0\win10-x64\WWBot.csproj.CoreCompileInputs.cache
+C:\Users\Koh Fang Shu\Documents\Visual Studio 2017\repos\WWBot\WWBot\obj\Release\netcoreapp2.0\win10-x64\WWBot.AssemblyInfoInputs.cache
+C:\Users\Koh Fang Shu\Documents\Visual Studio 2017\repos\WWBot\WWBot\obj\Release\netcoreapp2.0\win10-x64\WWBot.AssemblyInfo.cs
+C:\Users\Koh Fang Shu\Documents\Visual Studio 2017\repos\WWBot\WWBot\obj\Release\netcoreapp2.0\win10-x64\WWBot.dll
+C:\Users\Koh Fang Shu\Documents\Visual Studio 2017\repos\WWBot\WWBot\obj\Release\netcoreapp2.0\win10-x64\WWBot.pdb

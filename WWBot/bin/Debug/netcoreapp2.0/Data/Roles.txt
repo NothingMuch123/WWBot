@@ -1,0 +1,11 @@
+@everyone
+!Purple
+!Yellow
+!Green
+!Blue
+!Red
+Advisor
+Member
+Elite
+Officer
+Admin

@@ -1,0 +1,22 @@
+C:\Users\Koh Fang Shu\source\repos\WWBot\WWBot\bin\Debug\netcoreapp2.0\WWBot.deps.json
+C:\Users\Koh Fang Shu\source\repos\WWBot\WWBot\bin\Debug\netcoreapp2.0\WWBot.runtimeconfig.json
+C:\Users\Koh Fang Shu\source\repos\WWBot\WWBot\bin\Debug\netcoreapp2.0\WWBot.runtimeconfig.dev.json
+C:\Users\Koh Fang Shu\source\repos\WWBot\WWBot\bin\Debug\netcoreapp2.0\WWBot.dll
+C:\Users\Koh Fang Shu\source\repos\WWBot\WWBot\obj\Debug\netcoreapp2.0\WWBot.csprojAssemblyReference.cache
+C:\Users\Koh Fang Shu\source\repos\WWBot\WWBot\obj\Debug\netcoreapp2.0\WWBot.csproj.CoreCompileInputs.cache
+C:\Users\Koh Fang Shu\source\repos\WWBot\WWBot\obj\Debug\netcoreapp2.0\WWBot.AssemblyInfoInputs.cache
+C:\Users\Koh Fang Shu\source\repos\WWBot\WWBot\obj\Debug\netcoreapp2.0\WWBot.AssemblyInfo.cs
+C:\Users\Koh Fang Shu\source\repos\WWBot\WWBot\bin\Debug\netcoreapp2.0\WWBot.pdb
+C:\Users\Koh Fang Shu\source\repos\WWBot\WWBot\obj\Debug\netcoreapp2.0\WWBot.dll
+C:\Users\Koh Fang Shu\source\repos\WWBot\WWBot\obj\Debug\netcoreapp2.0\WWBot.pdb
+C:\Users\Koh Fang Shu\Documents\Visual Studio 2017\repos\WWBot\WWBot\bin\Debug\netcoreapp2.0\WWBot.deps.json
+C:\Users\Koh Fang Shu\Documents\Visual Studio 2017\repos\WWBot\WWBot\bin\Debug\netcoreapp2.0\WWBot.runtimeconfig.json
+C:\Users\Koh Fang Shu\Documents\Visual Studio 2017\repos\WWBot\WWBot\bin\Debug\netcoreapp2.0\WWBot.runtimeconfig.dev.json
+C:\Users\Koh Fang Shu\Documents\Visual Studio 2017\repos\WWBot\WWBot\bin\Debug\netcoreapp2.0\WWBot.dll
+C:\Users\Koh Fang Shu\Documents\Visual Studio 2017\repos\WWBot\WWBot\bin\Debug\netcoreapp2.0\WWBot.pdb
+C:\Users\Koh Fang Shu\Documents\Visual Studio 2017\repos\WWBot\WWBot\obj\Debug\netcoreapp2.0\WWBot.csprojAssemblyReference.cache
+C:\Users\Koh Fang Shu\Documents\Visual Studio 2017\repos\WWBot\WWBot\obj\Debug\netcoreapp2.0\WWBot.csproj.CoreCompileInputs.cache
+C:\Users\Koh Fang Shu\Documents\Visual Studio 2017\repos\WWBot\WWBot\obj\Debug\netcoreapp2.0\WWBot.AssemblyInfoInputs.cache
+C:\Users\Koh Fang Shu\Documents\Visual Studio 2017\repos\WWBot\WWBot\obj\Debug\netcoreapp2.0\WWBot.AssemblyInfo.cs
+C:\Users\Koh Fang Shu\Documents\Visual Studio 2017\repos\WWBot\WWBot\obj\Debug\netcoreapp2.0\WWBot.dll
+C:\Users\Koh Fang Shu\Documents\Visual Studio 2017\repos\WWBot\WWBot\obj\Debug\netcoreapp2.0\WWBot.pdb
