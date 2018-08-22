@@ -14,7 +14,6 @@ namespace WWBot.Modules.ComandsController
 {
     public class RolesController : BaseController
     {
-        /* Roles */
         private string correctRoleName(string role)
         {
             role = role.ToLower();
@@ -55,10 +54,6 @@ namespace WWBot.Modules.ComandsController
         {
             await (user as IGuildUser).RemoveRoleAsync(role);
         }
-
-        /// <summary>
-        /// Commands controller
-        /// </summary>
 
         [Command("deck"), RequireUserPermission(GuildPermission.ManageNicknames)]
         private async Task SetupDeckAsync(string deckColor)

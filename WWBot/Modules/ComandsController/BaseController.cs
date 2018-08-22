@@ -64,7 +64,8 @@ namespace WWBot.Modules
             await ReplyAsync("", false, msg);
         }
 
-        /*[Command("role")]
+        /*// Test commands
+        [Command("role")]
         public async Task RoleAsync(string inputRole)
         {
             // User data
@@ -95,6 +96,20 @@ namespace WWBot.Modules
                 reply += role.ToString() + " - " + role.Position + " | ";
             }
             Reply(reply);
-        }*/
+        }
+        
+        [Command("hi")]
+        public async Task HiAsync()
+        {
+            // User data
+            var data = new Data(Context);
+
+            // Creates a table with details
+            var builder = createEmbed("Hi", "Bye");
+            setEmbedColor(Color.Blue, ref builder);
+
+            await Reply(builder.Build());
+        }
+        */
     }
 }

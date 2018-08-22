@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.IO;
 
 // Excel
 using OfficeOpenXml;
@@ -18,25 +18,29 @@ namespace WWBot.Modules.ComandsController
     [Group("gw")]
     public class GuildWarsController : BaseController
     {
-        [Command("create")]
+        [Command("create"), RequireUserPermission(GuildPermission.ManageGuild)]
         public async Task CreateGWExcel(string DDMMYY)
         {
+            var fileURL = generateFileURL(DDMMYY);
+            if (!File.Exists(fileURL))
+            {
+                // Create file if file does not exist
+                using (ExcelPackage excel = new ExcelPackage())
+                {
+                    excel.Workbook.Worksheets.Add(DDMMYY);
 
+                    FileInfo excelFile = new FileInfo(fileURL);
+                    excel.SaveAs(excelFile);
+
+                    Reply($"\"{DDMMYY}\" excel has been created!");
+                }
+            }
+            Reply($"\"{DDMMYY}\" excel already exist!");
         }
 
-
-        // Test commands
-        [Command("hi")]
-        public async Task HiAsync()
+        protected string generateFileURL(string fileName)
         {
-            // User data
-            var data = new Data(Context);
-
-            // Creates a table with details
-            var builder = createEmbed("Hi", "Bye");
-            setEmbedColor(Color.Blue, ref builder);
-
-            await Reply(builder.Build());
+            return Program.GuildWarsResultsFolder + "\\" + fileName + ".xlsx";
         }
     }
 }
