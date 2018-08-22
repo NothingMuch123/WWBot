@@ -32,14 +32,21 @@ namespace WWBot
         private CommandService commands;
         private IServiceProvider services;
 
-        // Values
+        /* Static values */
         public static string CommandIndicator = "!";
+
+        // Roles variables
         public static string RolesPath = "Data\\Roles.txt";
+        public static List<string> Roles = new List<string>();
+
+        // Deck colors variables
         public static string DeckColorIndicator = "!";
         public static int MaxColorPos = -1; // Inclusive
         public static int MinColorPos = -1; // Inclusive
-        public static List<string> Roles = new List<string>();
         public static List<string> DeckColors = new List<string>();
+
+        // Excel variables (Guild wars)
+        public static string GuildWarsResultsFolder = "Data\\GuildWars";
 
         public async Task RunBotAsync()
         {
@@ -151,8 +158,9 @@ namespace WWBot
             }
             else
             {
-                StreamWriter writer = File.CreateText(RolesPath);
-                writer.WriteLine("Created");
+                // Test output to create file when not exist
+                /*StreamWriter writer = File.CreateText(RolesPath);
+                writer.WriteLine("Created");*/
                 Console.WriteLine($"{RolesPath} does not contain the Roles file");
             }
         }
