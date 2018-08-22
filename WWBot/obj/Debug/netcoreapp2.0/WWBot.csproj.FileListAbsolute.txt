@@ -20,3 +20,14 @@ C:\Users\Koh Fang Shu\Documents\Visual Studio 2017\repos\WWBot\WWBot\obj\Debug\n
 C:\Users\Koh Fang Shu\Documents\Visual Studio 2017\repos\WWBot\WWBot\obj\Debug\netcoreapp2.0\WWBot.AssemblyInfo.cs
 C:\Users\Koh Fang Shu\Documents\Visual Studio 2017\repos\WWBot\WWBot\obj\Debug\netcoreapp2.0\WWBot.dll
 C:\Users\Koh Fang Shu\Documents\Visual Studio 2017\repos\WWBot\WWBot\obj\Debug\netcoreapp2.0\WWBot.pdb
+C:\Users\PATRYK\Source\Repos\WorldWide\DiscordBot\WWBot\bin\Debug\netcoreapp2.0\WWBot.deps.json
+C:\Users\PATRYK\Source\Repos\WorldWide\DiscordBot\WWBot\bin\Debug\netcoreapp2.0\WWBot.runtimeconfig.json
+C:\Users\PATRYK\Source\Repos\WorldWide\DiscordBot\WWBot\bin\Debug\netcoreapp2.0\WWBot.runtimeconfig.dev.json
+C:\Users\PATRYK\Source\Repos\WorldWide\DiscordBot\WWBot\bin\Debug\netcoreapp2.0\WWBot.dll
+C:\Users\PATRYK\Source\Repos\WorldWide\DiscordBot\WWBot\bin\Debug\netcoreapp2.0\WWBot.pdb
+C:\Users\PATRYK\Source\Repos\WorldWide\DiscordBot\WWBot\obj\Debug\netcoreapp2.0\WWBot.csprojAssemblyReference.cache
+C:\Users\PATRYK\Source\Repos\WorldWide\DiscordBot\WWBot\obj\Debug\netcoreapp2.0\WWBot.csproj.CoreCompileInputs.cache
+C:\Users\PATRYK\Source\Repos\WorldWide\DiscordBot\WWBot\obj\Debug\netcoreapp2.0\WWBot.AssemblyInfoInputs.cache
+C:\Users\PATRYK\Source\Repos\WorldWide\DiscordBot\WWBot\obj\Debug\netcoreapp2.0\WWBot.AssemblyInfo.cs
+C:\Users\PATRYK\Source\Repos\WorldWide\DiscordBot\WWBot\obj\Debug\netcoreapp2.0\WWBot.dll
+C:\Users\PATRYK\Source\Repos\WorldWide\DiscordBot\WWBot\obj\Debug\netcoreapp2.0\WWBot.pdb

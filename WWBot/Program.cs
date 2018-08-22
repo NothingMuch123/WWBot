@@ -12,6 +12,9 @@ using Discord.WebSocket;
 // IO
 using System.IO;
 
+// Namespace usings
+using WWBot.Data.Materials.Classes;
+
 namespace WWBot
 {
     class Program
@@ -47,6 +50,11 @@ namespace WWBot
 
         // Excel variables (Guild wars)
         public static string GuildWarsResultsFolder = "Data\\GuildWars";
+
+        //Cards lvl variables
+        private static string gearsPath = "Data\\Materials\\Txt\\Gears.txt";
+        private static string monstersPath = "Data\\Materials\\Txt\\Monsters.txt";
+        private List<Card> cards;
 
         public async Task RunBotAsync()
         {
@@ -124,37 +132,7 @@ namespace WWBot
         {
             if (File.Exists(RolesPath))
             {
-                // Open file and load data
-                StreamReader reader = new StreamReader(RolesPath);
-                int counter = 0;
-                while (!reader.EndOfStream)
-                {
-                    var role = reader.ReadLine();
-                    if (role.StartsWith(DeckColorIndicator))
-                    {
-                        // Start of color role processing
-                        if (DeckColors.Count <= 0)
-                        {
-                            // Set min (One-time)
-                            MinColorPos = counter;
-                        }
-
-                        // Role is a color, add to color list
-                        role = role.Substring(DeckColorIndicator.Length); // Start from 'length' element to remove the indicator
-                        DeckColors.Add(role);
-                        Roles.Add(role);
-
-                        // Always set max so that max will be the last
-                        MaxColorPos = counter;
-                    }
-                    else
-                    {
-                        // Add into roles list
-                        Roles.Add(role);
-                    }
-                    Console.WriteLine($"Added \"{role}\" into Roles");
-                    ++counter;
-                }
+                LoadRoles();
             }
             else
             {
@@ -162,6 +140,171 @@ namespace WWBot
                 /*StreamWriter writer = File.CreateText(RolesPath);
                 writer.WriteLine("Created");*/
                 Console.WriteLine($"{RolesPath} does not contain the Roles file");
+            }
+            
+            if(File.Exists(monstersPath) && File.Exists(gearsPath))
+            {
+                LoadMaterials();
+            }
+            {
+                Console.WriteLine($"{monstersPath} or {gearsPath} does not contain the Monsters or Gears file");
+            }
+        }
+
+        private void LoadRoles()
+        {
+            // Open file and load data
+            StreamReader reader = new StreamReader(RolesPath);
+            int counter = 0;
+            while (!reader.EndOfStream)
+            {
+                var role = reader.ReadLine();
+                if (role.StartsWith(DeckColorIndicator))
+                {
+                    // Start of color role processing
+                    if (DeckColors.Count <= 0)
+                    {
+                        // Set min (One-time)
+                        MinColorPos = counter;
+                    }
+
+                    // Role is a color, add to color list
+                    role = role.Substring(DeckColorIndicator.Length); // Start from 'length' element to remove the indicator
+                    DeckColors.Add(role);
+                    Roles.Add(role);
+
+                    // Always set max so that max will be the last
+                    MaxColorPos = counter;
+                }
+                else
+                {
+                    // Add into roles list
+                    Roles.Add(role);
+                }
+                Console.WriteLine($"Added \"{role}\" into Roles");
+                ++counter;
+            }
+        }
+
+        private void LoadMaterials()
+        {
+            StreamReader monstersReader = new StreamReader(monstersPath);
+            StreamReader gearsReader = new StreamReader(gearsPath);
+
+            Card monsterCard = new Card();
+            Card gearCard = new Card();
+
+            int counter = 0;
+
+            while(!monstersReader.EndOfStream && !gearsReader.EndOfStream)
+            {
+                var monster = monstersReader.ReadLine();
+                var gear = gearsReader.ReadLine();
+
+                // We don't want to read form empty line.
+                if(monster.StartsWith("") || gear.StartsWith(""))
+                {
+                    monster = monstersReader.ReadLine();
+                    gear = gearsReader.ReadLine();
+                }
+
+                // These next if statements are security of not reading any strings to ints variables.
+
+                // -------------------------- Common
+                else if (monster.StartsWith("common") || gear.StartsWith("common"))
+                {
+                    RarityRead(monsterCard, gearCard, monster, gear, monstersReader, gearsReader, counter);
+                }
+
+                // -------------------------- Rare
+                else if (monster.StartsWith("rare") || gear.StartsWith("rare"))
+                {
+                    RarityRead(monsterCard, gearCard, monster, gear, monstersReader, gearsReader, counter);
+                }
+
+                // -------------------------- Epic
+                else if (monster.StartsWith("epic") || gear.StartsWith("epic"))
+                {
+                    RarityRead(monsterCard, gearCard, monster, gear, monstersReader, gearsReader, counter);
+                }
+
+                // -------------------------- Legendary
+                else if (monster.StartsWith("legendary") || gear.StartsWith("legendary"))
+                {
+                    RarityRead(monsterCard, gearCard, monster, gear, monstersReader, gearsReader, counter);
+                }
+
+                // -------------------------- Elite
+                else if (monster.StartsWith("elite"))
+                {
+                    monster = monstersReader.ReadLine();
+
+                    if (monster.StartsWith("gold"))
+                    {
+                        monster = monstersReader.ReadLine();
+
+                        monsterCard.Gold[counter] = Int32.Parse(monster);
+                    }
+                    else if (monster.StartsWith("materials"))
+                    {
+                        monster = monstersReader.ReadLine();
+
+                        monsterCard.Materials[counter] = Int32.Parse(monster);
+                    }
+                    else if (monster.StartsWith("crystals"))
+                    {
+                        monster = monstersReader.ReadLine();
+
+                        monsterCard.Crystals[counter] = Int32.Parse(monster);
+                    }
+                }
+                else
+                {
+                    ++counter;
+                }
+            }
+            monstersReader.Close();
+            gearsReader.Close();
+        }
+
+        // Method for nor repeating too many times the same lines of code.
+        private void RarityRead(Card monsterCard, Card gearCard, string monster, string gear, StreamReader monstersReader, StreamReader gearsReader, int counter = 0)
+        {
+            monster = monstersReader.ReadLine();
+            gear = gearsReader.ReadLine();
+
+            if (monster.StartsWith("gold") || gear.StartsWith("gold"))
+            {
+                monster = monstersReader.ReadLine();
+                gear = gearsReader.ReadLine();
+
+                monsterCard.Gold[counter] = Int32.Parse(monster);
+                gearCard.Gold[counter] = Int32.Parse(gear);
+
+                Console.WriteLine($"Gold :: Monster :: {monsterCard.Gold[counter]}");
+                Console.WriteLine($"Gold :: Gear :: {gearCard.Gold[counter]}");
+            }
+            else if (monster.StartsWith("materials") || gear.StartsWith("materials"))
+            {
+                monster = monstersReader.ReadLine();
+                gear = gearsReader.ReadLine();
+
+                monsterCard.Materials[counter] = Int32.Parse(monster);
+                gearCard.Materials[counter] = Int32.Parse(gear);
+
+                Console.WriteLine($"Materials :: Monster :: {monsterCard.Materials[counter]}");
+                Console.WriteLine($"Materials :: Gear :: {gearCard.Materials[counter]}");
+            }
+            else if (monster.StartsWith("crystals") || gear.StartsWith("crystals"))
+            {
+                monster = monstersReader.ReadLine();
+                gear = gearsReader.ReadLine();
+
+                monsterCard.Crystals[counter] = Int32.Parse(monster);
+                gearCard.Crystals[counter] = Int32.Parse(gear);
+
+                Console.WriteLine($"Crystals :: Monster :: {monsterCard.Crystals[counter]}");
+                Console.WriteLine($"Crystals :: Gear :: {gearCard.Crystals[counter]}");
             }
         }
     }
