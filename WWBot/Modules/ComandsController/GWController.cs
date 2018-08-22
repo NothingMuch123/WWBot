@@ -18,24 +18,29 @@ namespace WWBot.Modules.ComandsController
     [Group("gw")]
     public class GuildWarsController : BaseController
     {
+        protected string TemplateURL = Program.GuildWarsResultsFolder + "\\" + "Template.xlsx";
+
         [Command("create"), RequireUserPermission(GuildPermission.ManageGuild)]
         public async Task CreateGWExcel(string DDMMYY)
         {
             var fileURL = generateFileURL(DDMMYY);
             if (!File.Exists(fileURL))
             {
-                // Create file if file does not exist
-                using (ExcelPackage excel = new ExcelPackage())
-                {
-                    excel.Workbook.Worksheets.Add(DDMMYY);
+                // Copy template to create file if file does not exist
+                File.Copy(TemplateURL, fileURL, false);
 
-                    FileInfo excelFile = new FileInfo(fileURL);
-                    excel.SaveAs(excelFile);
+                using (ExcelPackage excel = new ExcelPackage(new FileInfo(fileURL)))
+                {
+                    excel.Workbook.Worksheets[0].Name = DDMMYY;
+                    excel.Save();
 
                     Reply($"\"{DDMMYY}\" excel has been created!");
                 }
             }
-            Reply($"\"{DDMMYY}\" excel already exist!");
+            else
+            {
+                Reply($"\"{DDMMYY}\" excel already exist!");
+            }
         }
 
         protected string generateFileURL(string fileName)
