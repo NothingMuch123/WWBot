@@ -54,7 +54,7 @@ namespace WWBot
         //Cards lvl variables
         private static string gearsPath = "Data\\Materials\\Txt\\Gears.txt";
         private static string monstersPath = "Data\\Materials\\Txt\\Monsters.txt";
-        private List<Card> cards;
+        private List<Card> cards = new List<Card>();
 
         public async Task RunBotAsync()
         {
@@ -130,6 +130,7 @@ namespace WWBot
         // IO for data
         public void loadIO()
         {
+            // Roles
             if (File.Exists(RolesPath))
             {
                 LoadRoles();
@@ -141,13 +142,19 @@ namespace WWBot
                 writer.WriteLine("Created");*/
                 Console.WriteLine($"{RolesPath} does not contain the Roles file");
             }
-            
-            if(File.Exists(monstersPath) && File.Exists(gearsPath))
+
+            // Monster and gears
+            if (!File.Exists(monstersPath))
+            {
+                Console.WriteLine($"{monstersPath} does not exist");
+            }
+            else if (!File.Exists(gearsPath))
+            {
+                Console.WriteLine($"{gearsPath} does not exist");
+            }
+            else
             {
                 LoadMaterials();
-            }
-            {
-                Console.WriteLine($"{monstersPath} or {gearsPath} does not contain the Monsters or Gears file");
             }
         }
 
