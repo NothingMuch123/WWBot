@@ -52,9 +52,31 @@ namespace WWBot
         public static string GuildWarsResultsFolder = "Data\\GuildWars";
 
         //Cards lvl variables
-        private static string gearsPath = "Data\\Materials\\Txt\\Gears.txt";
-        private static string monstersPath = "Data\\Materials\\Txt\\Monsters.txt";
-        private List<Card> cards = new List<Card>();
+            // Monsters
+            private static string commonMonsterPath = "Data\\Materials\\Txt\\Monsters\\Common.txt";
+            private static string rareMonsterPath = "Data\\Materials\\Txt\\Monsters\\Rare.txt";
+            private static string epicMonsterPath = "Data\\Materials\\Txt\\Monsters\\Epic.txt";
+            private static string legendaryMonsterPath = "Data\\Materials\\Txt\\Monsters\\Legendary.txt";
+            private static string eliteMonsterPath = "Data\\Materials\\Txt\\Monsters\\Elite.txt";
+
+            //Gears
+            private static string commonGearPath = "Data\\Materials\\Txt\\Gears\\Common.txt";
+            private static string rareGearPath = "Data\\Materials\\Txt\\Gears\\Rare.txt";
+            private static string epicGearPath = "Data\\Materials\\Txt\\Gears\\Epic.txt";
+            private static string legendaryGearPath = "Data\\Materials\\Txt\\Gears\\Legendary.txt";
+
+        // Monsters
+        public static List<Monster> commonMonsters = new List<Monster>();
+        private List<Monster> rareMonsters = new List<Monster>();
+        private List<Monster> epicMonsters = new List<Monster>();
+        private List<Monster> legendaryMonsters = new List<Monster>();
+        private List<Monster> eliteMonsters = new List<Monster>();
+
+        // Gears
+        private List<Gear> commonGears = new List<Gear>();
+        private List<Gear> rareGears = new List<Gear>();
+        private List<Gear> epicGears = new List<Gear>();
+        private List<Gear> legendaryGears = new List<Gear>();
 
         public async Task RunBotAsync()
         {
@@ -144,13 +166,13 @@ namespace WWBot
             }
 
             // Monster and gears
-            if (!File.Exists(monstersPath))
+            if (!File.Exists(commonGearPath))
             {
-                Console.WriteLine($"{monstersPath} does not exist");
+                Console.WriteLine($"{commonGearPath} does not exist");
             }
-            else if (!File.Exists(gearsPath))
+            else if (!File.Exists(commonMonsterPath))
             {
-                Console.WriteLine($"{gearsPath} does not exist");
+                Console.WriteLine($"{commonMonsterPath} does not exist");
             }
             else
             {
@@ -195,124 +217,39 @@ namespace WWBot
 
         private void LoadMaterials()
         {
-            StreamReader monstersReader = new StreamReader(monstersPath);
-            StreamReader gearsReader = new StreamReader(gearsPath);
-
-            Card monsterCard = new Card();
-            Card gearCard = new Card();
-
             int counter = 0;
 
-            while(!monstersReader.EndOfStream && !gearsReader.EndOfStream)
+            // Monsters
+            StreamReader commonMonster = new StreamReader(commonGearPath);
+            StreamReader rareMonster = new StreamReader(commonGearPath);
+            StreamReader epicMonster = new StreamReader(commonGearPath);
+            StreamReader legendaryMonster = new StreamReader(commonGearPath);
+            StreamReader eliteMonster = new StreamReader(commonGearPath);
+
+            // Gears
+            StreamReader commonGear = new StreamReader(commonMonsterPath);
+            StreamReader rareGear = new StreamReader(commonMonsterPath);
+            StreamReader epicGear = new StreamReader(commonMonsterPath);
+            StreamReader legendaryGear = new StreamReader(commonMonsterPath);
+
+            while (!commonMonster.EndOfStream)
             {
-                var monster = monstersReader.ReadLine();
-                var gear = gearsReader.ReadLine();
+                commonMonsters.Add(new Monster(
+                    Int32.Parse(commonMonster.ReadLine()),
+                    Int32.Parse(commonMonster.ReadLine()),
+                    Int32.Parse(commonMonster.ReadLine())
+                    ));
 
-                // We don't want to read form empty line.
-                if(monster.StartsWith("") || gear.StartsWith(""))
-                {
-                    monster = monstersReader.ReadLine();
-                    gear = gearsReader.ReadLine();
-                }
+                // Test output
+                Console.WriteLine($"Common Monster :: gold: {commonMonsters[counter].gold}" +
+                    $", materials : {commonMonsters[counter].materials}" +
+                    $", crystals: {commonMonsters[counter].crystals} " +
+                    $"and diamonds: {commonMonsters[counter].diamonds}");
 
-                // These next if statements are security of not reading any strings to ints variables.
-
-                // -------------------------- Common
-                else if (monster.StartsWith("common") || gear.StartsWith("common"))
-                {
-                    RarityRead(monsterCard, gearCard, monster, gear, monstersReader, gearsReader, counter);
-                }
-
-                // -------------------------- Rare
-                else if (monster.StartsWith("rare") || gear.StartsWith("rare"))
-                {
-                    RarityRead(monsterCard, gearCard, monster, gear, monstersReader, gearsReader, counter);
-                }
-
-                // -------------------------- Epic
-                else if (monster.StartsWith("epic") || gear.StartsWith("epic"))
-                {
-                    RarityRead(monsterCard, gearCard, monster, gear, monstersReader, gearsReader, counter);
-                }
-
-                // -------------------------- Legendary
-                else if (monster.StartsWith("legendary") || gear.StartsWith("legendary"))
-                {
-                    RarityRead(monsterCard, gearCard, monster, gear, monstersReader, gearsReader, counter);
-                }
-
-                // -------------------------- Elite
-                else if (monster.StartsWith("elite"))
-                {
-                    monster = monstersReader.ReadLine();
-
-                    if (monster.StartsWith("gold"))
-                    {
-                        monster = monstersReader.ReadLine();
-
-                        monsterCard.Gold[counter] = Int32.Parse(monster);
-                    }
-                    else if (monster.StartsWith("materials"))
-                    {
-                        monster = monstersReader.ReadLine();
-
-                        monsterCard.Materials[counter] = Int32.Parse(monster);
-                    }
-                    else if (monster.StartsWith("crystals"))
-                    {
-                        monster = monstersReader.ReadLine();
-
-                        monsterCard.Crystals[counter] = Int32.Parse(monster);
-                    }
-                }
-                else
-                {
-                    ++counter;
-                }
+                ++counter;
             }
-            monstersReader.Close();
-            gearsReader.Close();
-        }
-
-        // Method for nor repeating too many times the same lines of code.
-        private void RarityRead(Card monsterCard, Card gearCard, string monster, string gear, StreamReader monstersReader, StreamReader gearsReader, int counter = 0)
-        {
-            monster = monstersReader.ReadLine();
-            gear = gearsReader.ReadLine();
-
-            if (monster.StartsWith("gold") || gear.StartsWith("gold"))
-            {
-                monster = monstersReader.ReadLine();
-                gear = gearsReader.ReadLine();
-
-                monsterCard.Gold[counter] = Int32.Parse(monster);
-                gearCard.Gold[counter] = Int32.Parse(gear);
-
-                Console.WriteLine($"Gold :: Monster :: {monsterCard.Gold[counter]}");
-                Console.WriteLine($"Gold :: Gear :: {gearCard.Gold[counter]}");
-            }
-            else if (monster.StartsWith("materials") || gear.StartsWith("materials"))
-            {
-                monster = monstersReader.ReadLine();
-                gear = gearsReader.ReadLine();
-
-                monsterCard.Materials[counter] = Int32.Parse(monster);
-                gearCard.Materials[counter] = Int32.Parse(gear);
-
-                Console.WriteLine($"Materials :: Monster :: {monsterCard.Materials[counter]}");
-                Console.WriteLine($"Materials :: Gear :: {gearCard.Materials[counter]}");
-            }
-            else if (monster.StartsWith("crystals") || gear.StartsWith("crystals"))
-            {
-                monster = monstersReader.ReadLine();
-                gear = gearsReader.ReadLine();
-
-                monsterCard.Crystals[counter] = Int32.Parse(monster);
-                gearCard.Crystals[counter] = Int32.Parse(gear);
-
-                Console.WriteLine($"Crystals :: Monster :: {monsterCard.Crystals[counter]}");
-                Console.WriteLine($"Crystals :: Gear :: {gearCard.Crystals[counter]}");
-            }
+            commonMonster.Close();
+            commonGear.Close();
         }
     }
 }
