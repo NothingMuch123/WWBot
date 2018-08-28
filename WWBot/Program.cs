@@ -52,31 +52,50 @@ namespace WWBot
         public static string GuildWarsResultsFolder = "Data\\GuildWars";
 
         //Cards lvl variables
+
             // Monsters
-            private static string commonMonsterPath = "Data\\Materials\\Txt\\Monsters\\Common.txt";
-            private static string rareMonsterPath = "Data\\Materials\\Txt\\Monsters\\Rare.txt";
-            private static string epicMonsterPath = "Data\\Materials\\Txt\\Monsters\\Epic.txt";
-            private static string legendaryMonsterPath = "Data\\Materials\\Txt\\Monsters\\Legendary.txt";
-            private static string eliteMonsterPath = "Data\\Materials\\Txt\\Monsters\\Elite.txt";
+            private static string monstersFolderPath = "Data\\Materials\\Txt\\Monsters";
+
+            private static string commonMonsterPath = Path.Combine(monstersFolderPath, "Common.txt");
+            private static string rareMonsterPath = Path.Combine(monstersFolderPath, "Rare.txt");
+            private static string epicMonsterPath = Path.Combine(monstersFolderPath, "Epic.txt");
+            private static string legendaryMonsterPath = Path.Combine(monstersFolderPath, "Legendary.txt");
+            private static string eliteMonsterPath = Path.Combine(monstersFolderPath, "Elite.txt");
 
             //Gears
-            private static string commonGearPath = "Data\\Materials\\Txt\\Gears\\Common.txt";
-            private static string rareGearPath = "Data\\Materials\\Txt\\Gears\\Rare.txt";
-            private static string epicGearPath = "Data\\Materials\\Txt\\Gears\\Epic.txt";
-            private static string legendaryGearPath = "Data\\Materials\\Txt\\Gears\\Legendary.txt";
+            private static string gearsFolderPath = "Data\\Materials\\Txt\\Gears";
+
+            private static string commonGearPath = Path.Combine(gearsFolderPath, "Common.txt");
+            private static string rareGearPath = Path.Combine(gearsFolderPath, "Rare.txt");
+            private static string epicGearPath = Path.Combine(gearsFolderPath, "Epic.txt");
+            private static string legendaryGearPath = Path.Combine(gearsFolderPath, "Legendary.txt");
 
         // Monsters
-        public static List<Monster> commonMonsters = new List<Monster>();
-        private List<Monster> rareMonsters = new List<Monster>();
-        private List<Monster> epicMonsters = new List<Monster>();
-        private List<Monster> legendaryMonsters = new List<Monster>();
-        private List<Monster> eliteMonsters = new List<Monster>();
+        public static List<Monster> commonMonsters { get; set; }
+        public static List<Monster> rareMonsters { get; set; }
+        public static List<Monster> epicMonsters { get; set; }
+        public static List<Monster> legendaryMonsters { get; set; }
+        public static List<Monster> eliteMonsters { get; set; }
 
         // Gears
-        private List<Gear> commonGears = new List<Gear>();
-        private List<Gear> rareGears = new List<Gear>();
-        private List<Gear> epicGears = new List<Gear>();
-        private List<Gear> legendaryGears = new List<Gear>();
+        public static List<Gear> commonGears { get; set; }
+        public static List<Gear> rareGears { get; set; }
+        public static List<Gear> epicGears { get; set; }
+        public static List<Gear> legendaryGears { get; set; }
+
+        private Program ()
+        {
+            commonMonsters = new List<Monster>();
+            rareMonsters = new List<Monster>();
+            epicMonsters = new List<Monster>();
+            legendaryMonsters = new List<Monster>();
+            eliteMonsters = new List<Monster>();
+
+            commonGears = new List<Gear>();
+            rareGears = new List<Gear>();
+            epicGears = new List<Gear>();
+            legendaryGears = new List<Gear>();
+        }
 
         public async Task RunBotAsync()
         {
@@ -217,39 +236,93 @@ namespace WWBot
 
         private void LoadMaterials()
         {
-            int counter = 0;
+            //int counter = 0;
 
             // Monsters
-            StreamReader commonMonster = new StreamReader(commonGearPath);
-            StreamReader rareMonster = new StreamReader(commonGearPath);
-            StreamReader epicMonster = new StreamReader(commonGearPath);
-            StreamReader legendaryMonster = new StreamReader(commonGearPath);
-            StreamReader eliteMonster = new StreamReader(commonGearPath);
+            StreamReader commonMonster = new StreamReader(commonMonsterPath);
+            StreamReader rareMonster = new StreamReader(rareMonsterPath);
+            StreamReader epicMonster = new StreamReader(epicMonsterPath);
+            StreamReader legendaryMonster = new StreamReader(legendaryMonsterPath);
+            StreamReader eliteMonster = new StreamReader(eliteMonsterPath);
 
             // Gears
-            StreamReader commonGear = new StreamReader(commonMonsterPath);
-            StreamReader rareGear = new StreamReader(commonMonsterPath);
-            StreamReader epicGear = new StreamReader(commonMonsterPath);
-            StreamReader legendaryGear = new StreamReader(commonMonsterPath);
+            StreamReader commonGear = new StreamReader(commonGearPath);
+            StreamReader rareGear = new StreamReader(rareGearPath);
+            StreamReader epicGear = new StreamReader(epicGearPath);
+            StreamReader legendaryGear = new StreamReader(legendaryGearPath);
 
-            while (!commonMonster.EndOfStream)
+            #region Fullfilling lists of Monsters and Gears
+
+            // Fullfilling list of Monsters form the monsters txt files
+            CreateMonsterList(commonMonster, commonMonsters);
+            CreateMonsterList(rareMonster, rareMonsters);
+            CreateMonsterList(epicMonster, epicMonsters);
+            CreateMonsterList(legendaryMonster, legendaryMonsters);
+            CreateMonsterList(eliteMonster, eliteMonsters);
+
+            // Fullfilling list of Gears the gears txt files
+            CreateGearList(commonGear, commonGears);
+            CreateGearList(rareGear, rareGears);
+            CreateGearList(epicGear, epicGears);
+            CreateGearList(legendaryGear, legendaryGears);
+
+            #endregion
+
+            CloseStreamer(commonMonster);
+            CloseStreamer(rareMonster);
+            CloseStreamer(epicMonster);
+            CloseStreamer(legendaryMonster);
+            CloseStreamer(eliteMonster);
+
+            CloseStreamer(commonGear);
+            CloseStreamer(rareGear);
+            CloseStreamer(epicGear);
+            CloseStreamer(legendaryGear);
+        }
+
+        private void CloseStreamer(StreamReader stream)
+        {
+            stream.Close();
+        }
+
+        private void CreateMonsterList(StreamReader streamReader, List<Monster> cardList)
+        {
+            while (!streamReader.EndOfStream)
             {
-                commonMonsters.Add(new Monster(
-                    Int32.Parse(commonMonster.ReadLine()),
-                    Int32.Parse(commonMonster.ReadLine()),
-                    Int32.Parse(commonMonster.ReadLine())
-                    ));
-
-                // Test output
-                Console.WriteLine($"Common Monster :: gold: {commonMonsters[counter].gold}" +
-                    $", materials : {commonMonsters[counter].materials}" +
-                    $", crystals: {commonMonsters[counter].crystals} " +
-                    $"and diamonds: {commonMonsters[counter].diamonds}");
-
-                ++counter;
+                try
+                {
+                    cardList.Add(new Monster(
+                        Int32.Parse(streamReader.ReadLine()),
+                        Int32.Parse(streamReader.ReadLine()),
+                        Int32.Parse(streamReader.ReadLine()),
+                        Int32.Parse(streamReader.ReadLine())
+                        ));
+                }
+                catch (ArgumentNullException e)
+                {
+                    throw new ArgumentNullException(string.Format("Couldn't fullfill list. TIP: compare number of lines with elemnts count."));
+                }
             }
-            commonMonster.Close();
-            commonGear.Close();
+        }
+
+        private void CreateGearList(StreamReader streamReader, List<Gear> cardList)
+        {
+            while (!streamReader.EndOfStream)
+            {
+                try
+                {
+                    cardList.Add(new Gear(
+                        Int32.Parse(streamReader.ReadLine()),
+                        Int32.Parse(streamReader.ReadLine()),
+                        Int32.Parse(streamReader.ReadLine())
+                        ));
+                }
+                catch (ArgumentNullException e)
+                {
+                    throw new ArgumentNullException(string.Format("Couldn't fullfill list. TIP: compare number of lines with elemnts count."));
+                }
+
+            }
         }
     }
 }
