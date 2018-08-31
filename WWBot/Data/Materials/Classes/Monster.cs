@@ -4,11 +4,8 @@ using System.Text;
 
 namespace WWBot.Data.Materials.Classes
 {
-    public class Monster : ICard
+    public class Monster : BaseCard
     {
-        public int gold { get; set; }
-        public int materials { get; set; }
-        public int crystals { get; set; }
         public int diamonds { get; set; }
 
         public Monster(int gold, int materials, int crystals, int diamonds = 0)
