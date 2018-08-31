@@ -64,6 +64,12 @@ namespace WWBot.Modules
             await ReplyAsync("", false, msg);
         }
 
+        [Command("help")]
+        public async Task HelpAsync()
+        {
+
+        }
+
         /*// Test commands
         [Command("role")]
         public async Task RoleAsync(string inputRole)

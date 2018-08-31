@@ -48,9 +48,6 @@ namespace WWBot
         public static int MinColorPos = -1; // Inclusive
         public static List<string> DeckColors = new List<string>();
 
-        // Excel variables (Guild wars)
-        public static string GuildWarsResultsFolder = "Data\\GuildWars";
-
         //Cards lvl variables
 
             // Monsters
@@ -178,9 +175,6 @@ namespace WWBot
             }
             else
             {
-                // Test output to create file when not exist
-                /*StreamWriter writer = File.CreateText(RolesPath);
-                writer.WriteLine("Created");*/
                 Console.WriteLine($"{RolesPath} does not contain the Roles file");
             }
 
