@@ -103,7 +103,7 @@ namespace WWBot.Modules.ComandsController
              }
         }
 
-        private async Task ReplyWithoutDiamods(ICard card, int lvl = 2, int gold = 0, int materials = 0, int crystals = 0)
+        private async Task ReplyWithoutDiamods(BaseCard card, int lvl = 2, int gold = 0, int materials = 0, int crystals = 0)
         {
             gold = CalculateMaterials(card.gold, gold);
             materials = CalculateMaterials(card.materials, materials);
