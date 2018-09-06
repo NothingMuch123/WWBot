@@ -15,31 +15,37 @@ namespace WWBot.Modules.ComandsController
 {
     public class CalculatorController : BaseController
     {
-        [Command("calculate")]
-        private async Task Calculate(string type, string rarity, int lvl = 2, int gold = 0, int materials = 0, int crystals = 0, int diamonds = 0)
+        [Command("name")]
+        private async Task GetName()
+        {
+            await Reply(Context.User.Username);
+        }
+
+        [Command("cm_calculate")]
+        private async Task Calculate(string type, string rarity, int lvl = 2, int gold = 0, int materials = 0, int crystals = 0, int diamonds = 0, int scrolls = 0)
         {
             if(type.ToLower() == "monster")
             {
                 switch (rarity.ToLower())
                 {
                     case "common":
-                            await ReplyUser(Program.commonMonsters[lvl - 2], lvl, gold, materials, crystals, diamonds);
+                            await ReplyUser(Program.commonMonsters[lvl - 2], lvl, gold, materials, crystals, diamonds, scrolls);
                         break;
 
                     case "rare":
-                            await ReplyUser(Program.rareMonsters[lvl - 2], lvl, gold, materials, crystals, diamonds);
+                            await ReplyUser(Program.rareMonsters[lvl - 2], lvl, gold, materials, crystals, diamonds, scrolls);
                         break;
 
                     case "epic":
-                            await ReplyUser(Program.epicMonsters[lvl - 2], lvl, gold, materials, crystals, diamonds);
+                            await ReplyUser(Program.epicMonsters[lvl - 2], lvl, gold, materials, crystals, diamonds, scrolls);
                         break;
 
                     case "legendary":
-                            await ReplyUser(Program.legendaryMonsters[lvl - 2], lvl, gold, materials, crystals, diamonds);
+                            await ReplyUser(Program.legendaryMonsters[lvl - 2], lvl, gold, materials, crystals, diamonds, scrolls);
                         break;
 
                     case "elite":
-                            await ReplyUser(Program.eliteMonsters[lvl - 2], lvl, gold, materials, crystals, diamonds);
+                            await ReplyUser(Program.eliteMonsters[lvl - 2], lvl, gold, materials, crystals, diamonds, scrolls);
                         break;
 
                     default:
@@ -82,20 +88,22 @@ namespace WWBot.Modules.ComandsController
             }          
         }
 
-        private async Task ReplyUser(Monster card, int lvl = 2, int gold = 0, int materials = 0, int crystals = 0, int diamonds = 0)
+        private async Task ReplyUser(Monster card, int lvl = 2, int gold = 0, int materials = 0, int crystals = 0, int diamonds = 0, int scrolls = 0)
         {
             gold = CalculateMaterials(card.gold, gold);
             materials = CalculateMaterials(card.materials, materials);
             crystals = CalculateMaterials(card.crystals, crystals);
             diamonds = CalculateMaterials(card.diamonds, diamonds);
+            scrolls = CalculateMaterials(card.scrolls, scrolls);
 
-            if (card.diamonds != 0)
+            if (card.diamonds != 0 && card.scrolls != 0)
              {
                 await Reply($"To upgrade a monster to the lvl {lvl}, " +
                 $"you will need a {gold} gold, " +
                 $"{materials} materials, " +
-                $"{crystals} crystals " +
-                $"and {diamonds} diamonds more.");
+                $"{crystals} crystals, " +
+                $"{diamonds} diamonds " +
+                $"and {scrolls} scrolls more.");
              }
              else
              {
