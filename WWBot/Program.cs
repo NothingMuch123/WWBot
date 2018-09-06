@@ -232,46 +232,43 @@ namespace WWBot
         {
             //int counter = 0;
 
-            // Monsters
-            StreamReader commonMonster = new StreamReader(commonMonsterPath);
-            StreamReader rareMonster = new StreamReader(rareMonsterPath);
-            StreamReader epicMonster = new StreamReader(epicMonsterPath);
-            StreamReader legendaryMonster = new StreamReader(legendaryMonsterPath);
-            StreamReader eliteMonster = new StreamReader(eliteMonsterPath);
+                #region Fullfilling lists of Monsters and Gears
 
-            // Gears
-            StreamReader commonGear = new StreamReader(commonGearPath);
-            StreamReader rareGear = new StreamReader(rareGearPath);
-            StreamReader epicGear = new StreamReader(epicGearPath);
-            StreamReader legendaryGear = new StreamReader(legendaryGearPath);
+                // Fullfilling list of Gears the gears txt files
 
-            #region Fullfilling lists of Monsters and Gears
+                // Monsters
+                MonsterStreamer(commonMonsterPath, commonMonsters);
+                MonsterStreamer(rareMonsterPath, rareMonsters);
+                MonsterStreamer(epicMonsterPath, epicMonsters);
+                MonsterStreamer(legendaryMonsterPath, legendaryMonsters);
+                MonsterStreamer(eliteMonsterPath, eliteMonsters);
 
-            // Fullfilling list of Monsters form the monsters txt files
-            CreateMonsterList(commonMonster, commonMonsters);
-            CreateMonsterList(rareMonster, rareMonsters);
-            CreateMonsterList(epicMonster, epicMonsters);
-            CreateMonsterList(legendaryMonster, legendaryMonsters);
-            CreateMonsterList(eliteMonster, eliteMonsters);
+                // Gears
+                GearStreamer(commonGearPath, commonGears);
+                GearStreamer(rareGearPath, rareGears);
+                GearStreamer(epicGearPath, epicGears);
+                GearStreamer(legendaryGearPath, legendaryGears);
 
-            // Fullfilling list of Gears the gears txt files
-            CreateGearList(commonGear, commonGears);
-            CreateGearList(rareGear, rareGears);
-            CreateGearList(epicGear, epicGears);
-            CreateGearList(legendaryGear, legendaryGears);
+                #endregion
+            
+            }
 
-            #endregion
+        private void MonsterStreamer(string path, List<Monster> monsterList)
+        {
+            StreamReader reader = new StreamReader(path);
 
-            CloseStreamer(commonMonster);
-            CloseStreamer(rareMonster);
-            CloseStreamer(epicMonster);
-            CloseStreamer(legendaryMonster);
-            CloseStreamer(eliteMonster);
+            CreateMonsterList(reader, monsterList);
 
-            CloseStreamer(commonGear);
-            CloseStreamer(rareGear);
-            CloseStreamer(epicGear);
-            CloseStreamer(legendaryGear);
+            CloseStreamer(reader);
+        }
+
+        private void GearStreamer(string path, List<Gear> gearList)
+        {
+            StreamReader reader = new StreamReader(path);
+
+            CreateGearList(reader, gearList);
+
+            CloseStreamer(reader);
         }
 
         private void CloseStreamer(StreamReader stream)
@@ -286,6 +283,7 @@ namespace WWBot
                 try
                 {
                     cardList.Add(new Monster(
+                        Int32.Parse(streamReader.ReadLine()),
                         Int32.Parse(streamReader.ReadLine()),
                         Int32.Parse(streamReader.ReadLine()),
                         Int32.Parse(streamReader.ReadLine()),
